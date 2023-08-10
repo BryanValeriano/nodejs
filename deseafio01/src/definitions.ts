@@ -9,3 +9,12 @@ export type TRoute = {
   path: string,
   handler: () => void
 }
+
+export type TTask = {
+  id: number,
+  title: string,
+  description: string,
+  completed_at: Date,
+  created_at: Date,
+  updated_at: Date
+}
