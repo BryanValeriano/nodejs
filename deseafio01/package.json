@@ -14,6 +14,6 @@
     "dev-server": "tsnd --respawn src/server.ts"
   },
   "dependencies": {
-    "@types/node": "^20.4.8"
+    "@types/node": "^20.4.9"
   }
 }
