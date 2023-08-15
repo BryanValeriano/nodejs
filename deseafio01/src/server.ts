@@ -1,7 +1,7 @@
 import http from 'node:http'
 import { json } from './middlewares/json';
 import { IincomingMessage, TRoute } from './definitions';
-import { routes } from './routes';
+import { routes } from './routes/routes';
 
 const server = http.createServer(async (req: IincomingMessage, res) => {
   const { method, url } = req;
@@ -14,6 +14,10 @@ const server = http.createServer(async (req: IincomingMessage, res) => {
 
   console.log("route: \n", route)
   console.log("body: \n", req.body)
+
+  if (route) {
+    return route.handler(req, res);
+  }
 
   return res.end('Hello 8');
 })

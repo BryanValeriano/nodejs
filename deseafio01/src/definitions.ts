@@ -1,17 +1,20 @@
-import { IncomingMessage } from "http";
+import { IncomingMessage, ServerResponse } from "http";
 
 export interface IincomingMessage extends IncomingMessage {
-  body?: JSON | null
+  body?: {
+    title?: string,
+    description?: string
+  } | null
 }
 
 export type TRoute = {
   method: string,
   path: string,
-  handler: () => void
+  handler: (req: IincomingMessage, res: ServerResponse) => void
 }
 
 export type TTask = {
-  id: number,
+  id: string,
   title: string,
   description: string,
   completed_at: Date,

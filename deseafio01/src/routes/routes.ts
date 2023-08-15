@@ -1,4 +1,5 @@
-import { TRoute } from "./definitions";
+import { TRoute } from "../definitions";
+import { PostTaskHandler } from "./routeHandlers/PostTaskHandler";
 
 export const routes: TRoute[] = [
   {
@@ -11,8 +12,6 @@ export const routes: TRoute[] = [
   {
     method: 'POST',
     path: '/tasks',
-    handler: () => {
-      console.log('Reached POST /tasks endpoint')
-    }
+    handler: PostTaskHandler
   }
 ];
