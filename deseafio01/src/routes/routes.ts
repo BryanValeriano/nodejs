@@ -5,8 +5,10 @@ export const routes: TRoute[] = [
   {
     method: 'GET',
     path: '/tasks',
-    handler: () => {
+    handler: (req, res) => {
       console.log('Reached GET /tasks endpoint')
+      res.writeHead(200).end();
+      return;
     }
   },
   {

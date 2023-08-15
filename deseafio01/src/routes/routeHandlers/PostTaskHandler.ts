@@ -1,6 +1,8 @@
 import { ServerResponse } from "http";
 import { IincomingMessage, TTask } from "../../definitions";
 import { randomUUID } from "crypto";
+import { DataBase } from "../../repository/local/database";
+const database = new DataBase();
 
 export function PostTaskHandler(req: IincomingMessage, res: ServerResponse) {
   console.log('Reached POST /tasks endpoint')
@@ -14,6 +16,7 @@ export function PostTaskHandler(req: IincomingMessage, res: ServerResponse) {
       updated_at: new Date()
     }
     console.log(task)
+    database.insert('tasks', task);
     return res.writeHead(201).end();
   }
   return res.writeHead(422).end();
