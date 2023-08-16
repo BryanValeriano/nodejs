@@ -7,7 +7,9 @@ export type TBody = {
 } | null | undefined;
 
 export interface IincomingMessage extends IncomingMessage {
-  body?: TBody
+  body?: TBody,
+  query?: any,
+  params?: any
 }
 
 export type TRoute = {
