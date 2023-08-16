@@ -1,11 +1,6 @@
 import { ServerResponse } from "http";
-import { IincomingMessage } from "../../definitions";
+import { IincomingMessage, TSearch } from "../../definitions";
 import { IRepository } from "../../repository/IRepository";
-
-type TSearch = {
-  title?: string,
-  description?: string
-} | null | undefined;
 
 export function GetTaskHandler(req: IincomingMessage, res: ServerResponse, database: IRepository) {
   console.log('Reached GET /tasks endpoint')

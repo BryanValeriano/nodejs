@@ -8,6 +8,11 @@ export interface IincomingMessage extends IncomingMessage {
   } | null
 }
 
+export type TSearch = {
+  title?: string,
+  description?: string
+} | null | undefined;
+
 export type TRoute = {
   method: string,
   path: string,
