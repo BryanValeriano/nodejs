@@ -1,17 +1,14 @@
 import { IncomingMessage, ServerResponse } from "http";
 import { IRepository } from "./repository/IRepository";
 
-export interface IincomingMessage extends IncomingMessage {
-  body?: {
-    title?: string,
-    description?: string
-  } | null
-}
-
-export type TSearch = {
+export type TBody = {
   title?: string,
   description?: string
 } | null | undefined;
+
+export interface IincomingMessage extends IncomingMessage {
+  body?: TBody
+}
 
 export type TRoute = {
   method: string,
