@@ -7,10 +7,23 @@ export async function json(req: IincomingMessage, res: ServerResponse) {
   for await (const chunk of req) { buffers.push(chunk); }
 
   try {
-    req.body = JSON.parse(Buffer.concat(buffers).toString())
+    const body = JSON.parse(Buffer.concat(buffers).toString())
+    getAllowedBodyParams(body, req);
   } catch {
     req.body = null;
   }
 
-  //res.setHeader('Content-type', 'application/json');
+  res.setHeader('Content-type', 'application/json');
+}
+
+function getAllowedBodyParams(body: any, req: IincomingMessage) {
+  if (body) {
+    req.body = {};
+    if (body.title) {
+      req.body.title = body.title;
+    }
+    if (body.description) {
+      req.body.description = body.description;
+    }
+  }
 }
