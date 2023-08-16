@@ -7,6 +7,8 @@ const database = new DataBase();
 
 const server = http.createServer(async (req: IincomingMessage, res: ServerResponse) => {
   const { method, url } = req;
+  console.log("METHOD: ", method);
+  console.log("url: ", url);
 
   await json(req, res);
 
