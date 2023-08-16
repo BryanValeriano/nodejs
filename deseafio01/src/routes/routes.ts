@@ -1,15 +1,12 @@
 import { TRoute } from "../definitions";
-import { PostTaskHandler } from "./routeHandlers/PostTaskHandler";
+import { GetTaskHandler } from "./routeHandlers/getTaskHandler";
+import { PostTaskHandler } from "./routeHandlers/postTaskHandler";
 
 export const routes: TRoute[] = [
   {
     method: 'GET',
     path: '/tasks',
-    handler: (req, res) => {
-      console.log('Reached GET /tasks endpoint')
-      res.writeHead(200).end();
-      return;
-    }
+    handler: GetTaskHandler
   },
   {
     method: 'POST',
