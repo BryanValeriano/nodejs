@@ -1,6 +1,7 @@
 import { IRepository } from "../IRepository";
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { TBody } from "../../definitions";
 const databasePath = path.join(__dirname, './db.json');
 
 export class DataBase implements IRepository {
@@ -18,7 +19,7 @@ export class DataBase implements IRepository {
     fs.writeFile(databasePath, JSON.stringify(this.#database));
   }
 
-  public select(table: string, search: any) {
+  public select(table: string, search: TBody) {
     let data = this.#database[table] ?? [];
     console.log(search)
     if (search) {
@@ -32,7 +33,7 @@ export class DataBase implements IRepository {
     return data;
   }
 
-  public insert(table: string, data: any) {
+  public insert(table: string, data: TBody) {
     if (!Array.isArray(this.#database[table])) {
       this.#database[table] = [];
     }
