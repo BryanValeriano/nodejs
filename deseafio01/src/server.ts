@@ -1,17 +1,17 @@
-import http from 'node:http'
+import http, { ServerResponse } from 'node:http'
 import { json } from './middlewares/json';
 import { IincomingMessage, TRoute } from './definitions';
 import { routes } from './routes/routes';
 import { DataBase } from './repository/local/database';
 const database = new DataBase();
 
-const server = http.createServer(async (req: IincomingMessage, res) => {
+const server = http.createServer(async (req: IincomingMessage, res: ServerResponse) => {
   const { method, url } = req;
 
   await json(req, res);
 
   const route = routes.find((route: TRoute) => {
-    return route.method === method && route.path == url;
+    return route.method === method && route.path.test(url ? url : "");
   })
 
   console.log("route: \n", route)

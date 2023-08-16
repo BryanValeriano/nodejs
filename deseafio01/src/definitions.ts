@@ -12,7 +12,7 @@ export interface IincomingMessage extends IncomingMessage {
 
 export type TRoute = {
   method: string,
-  path: string,
+  path: RegExp,
   handler: (req: IincomingMessage, res: ServerResponse, database: IRepository) => void
 }
 
