@@ -18,6 +18,20 @@ export class DataBase implements IRepository {
     fs.writeFile(databasePath, JSON.stringify(this.#database));
   }
 
+  public select(table: string, search: any) {
+    let data = this.#database[table] ?? [];
+    console.log(search)
+    if (search) {
+      data = data.filter(row => {
+        return Object.entries(search).some(([key, value]) => {
+          return row[key].toLowerCase().includes((value as string).toLowerCase());
+        })
+      })
+    }
+
+    return data;
+  }
+
   public insert(table: string, data: any) {
     if (!Array.isArray(this.#database[table])) {
       this.#database[table] = [];

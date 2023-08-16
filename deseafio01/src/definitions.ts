@@ -1,4 +1,5 @@
 import { IncomingMessage, ServerResponse } from "http";
+import { IRepository } from "./repository/IRepository";
 
 export interface IincomingMessage extends IncomingMessage {
   body?: {
@@ -10,7 +11,7 @@ export interface IincomingMessage extends IncomingMessage {
 export type TRoute = {
   method: string,
   path: string,
-  handler: (req: IincomingMessage, res: ServerResponse) => void
+  handler: (req: IincomingMessage, res: ServerResponse, database: IRepository) => void
 }
 
 export type TTask = {

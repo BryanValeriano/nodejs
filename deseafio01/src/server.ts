@@ -2,6 +2,8 @@ import http from 'node:http'
 import { json } from './middlewares/json';
 import { IincomingMessage, TRoute } from './definitions';
 import { routes } from './routes/routes';
+import { DataBase } from './repository/local/database';
+const database = new DataBase();
 
 const server = http.createServer(async (req: IincomingMessage, res) => {
   const { method, url } = req;
@@ -16,7 +18,7 @@ const server = http.createServer(async (req: IincomingMessage, res) => {
   console.log("body: \n", req.body)
 
   if (route) {
-    return route.handler(req, res);
+    return route.handler(req, res, database);
   }
 
   return res.end('Hello 8');

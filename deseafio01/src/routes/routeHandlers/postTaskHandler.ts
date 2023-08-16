@@ -1,10 +1,9 @@
 import { ServerResponse } from "http";
 import { IincomingMessage, TTask } from "../../definitions";
 import { randomUUID } from "crypto";
-import { DataBase } from "../../repository/local/database";
-const database = new DataBase();
+import { IRepository } from "../../repository/IRepository";
 
-export function PostTaskHandler(req: IincomingMessage, res: ServerResponse) {
+export function PostTaskHandler(req: IincomingMessage, res: ServerResponse, database: IRepository) {
   console.log('Reached POST /tasks endpoint')
   if (req.body && req.body.title && req.body.description) {
     const task: TTask = {
