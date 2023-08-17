@@ -1,5 +1,6 @@
 import { TRoute } from "../definitions";
 import { buildRoutePath } from "../utils/buildRoutePath";
+import { DeleteTaskHandler } from "./routeHandlers/deleteTaskHandler";
 import { GetTaskHandler } from "./routeHandlers/getTaskHandler";
 import { PostTaskHandler } from "./routeHandlers/postTaskHandler";
 import { UpdateTaskHandler } from "./routeHandlers/updateTaskHandler";
@@ -19,5 +20,10 @@ export const routes: TRoute[] = [
     method: 'PUT',
     path: buildRoutePath('/tasks/:id'),
     handler: UpdateTaskHandler
+  },
+  {
+    method: 'DELETE',
+    path: buildRoutePath('/tasks/:id'),
+    handler: DeleteTaskHandler
   }
 ];

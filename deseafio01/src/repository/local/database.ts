@@ -43,6 +43,14 @@ export class DataBase implements IRepository {
     return data;
   }
 
+  delete(table: string, id: string) {
+    const rowindex = this.#database[table].findIndex(row => row.id === id);
+    if (rowindex !== -1) {
+      this.#database[table].splice(rowindex, 1);
+      this.#persist()
+    }
+  }
+
   public update(table: string, id: string, data: TBody) {
     const rowIndex = this.#database[table].findIndex(row => row.id === id);
     if (rowIndex !== -1) {
