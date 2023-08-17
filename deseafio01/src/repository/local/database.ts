@@ -55,4 +55,8 @@ export class DataBase implements IRepository {
       this.#persist();
     }
   }
+
+  public checkIDExistence(table: string, id: string): boolean {
+    return (this.#database[table].findIndex(row => row.id === id) !== -1);
+  }
 }
