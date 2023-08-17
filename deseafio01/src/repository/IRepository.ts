@@ -6,4 +6,5 @@ export interface IRepository {
   select: (table: string, search: TBody) => any;
   delete: (table: string, id: string) => any;
   checkIDExistence: (table: string, id: string) => boolean;
+  changeComplete: (table: string, id: string) => any;
 }

@@ -10,7 +10,7 @@ export function PostTaskHandler(req: IincomingMessage, res: ServerResponse, data
       id: randomUUID(),
       title: req?.body?.title,
       description: req?.body?.description,
-      completed_at: new Date(),
+      completed_at: null,
       created_at: new Date(),
       updated_at: new Date()
     }

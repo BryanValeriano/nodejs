@@ -54,15 +54,28 @@ export class DataBase implements IRepository {
   public update(table: string, id: string, data: TBody) {
     const rowIndex = this.#database[table].findIndex(row => row.id === id);
     if (rowIndex !== -1) {
-      if (data && data.title) {
-        this.#database[table][rowIndex].title = data.title;
+      if (data) {
+        if (data.title) {
+          this.#database[table][rowIndex].title = data.title;
+        }
+        if (data.description) {
+          this.#database[table][rowIndex].description = data.description;
+        }
+        this.#database[table][rowIndex].updated_at = new Date();
+        this.#persist();
       }
-      if (data && data.description) {
-        this.#database[table][rowIndex].description = data.description;
-      }
+    }
+  }
+
+  public changeComplete(table: string, id: string) {
+    const rowIndex = this.#database[table].findIndex(row => row.id === id);
+    if (rowIndex !== -1) {
+      const completed = this.#database[table][rowIndex].completed_at;
+      this.#database[table][rowIndex].completed_at = (completed ? null : new Date())
       this.#persist();
     }
   }
+
 
   public checkIDExistence(table: string, id: string): boolean {
     return (this.#database[table].findIndex(row => row.id === id) !== -1);
