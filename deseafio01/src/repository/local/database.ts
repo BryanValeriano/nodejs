@@ -42,4 +42,17 @@ export class DataBase implements IRepository {
     this.#persist();
     return data;
   }
+
+  public update(table: string, id: string, data: TBody) {
+    const rowIndex = this.#database[table].findIndex(row => row.id === id);
+    if (rowIndex !== -1) {
+      if (data && data.title) {
+        this.#database[table][rowIndex].title = data.title;
+      }
+      if (data && data.description) {
+        this.#database[table][rowIndex].description = data.description;
+      }
+      this.#persist();
+    }
+  }
 }
