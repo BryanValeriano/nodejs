@@ -1,5 +1,6 @@
 import { TRoute } from "../definitions";
 import { buildRoutePath } from "../utils/buildRoutePath";
+import { CsvUploadHandler } from "./routeHandlers/csvUploadHandler";
 import { DeleteTaskHandler } from "./routeHandlers/deleteTaskHandler";
 import { GetTaskHandler } from "./routeHandlers/getTaskHandler";
 import { PatchTaskHandler } from "./routeHandlers/patchTaskHandler";
@@ -31,5 +32,11 @@ export const routes: TRoute[] = [
     method: 'PATCH',
     path: buildRoutePath('/tasks/:id/complete'),
     handler: PatchTaskHandler
-  }
+  },
+  {
+
+    method: 'POST',
+    path: buildRoutePath('/csvUpload'),
+    handler: CsvUploadHandler
+  },
 ];

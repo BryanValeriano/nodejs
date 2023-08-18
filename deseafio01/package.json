@@ -18,6 +18,8 @@
     "dev-server": "tsnd --respawn src/server.ts"
   },
   "dependencies": {
-    "@types/node": "^20.4.9"
+    "@types/node": "^20.4.9",
+    "axios": "^1.4.0",
+    "csv-parse": "^5.4.0"
   }
 }
