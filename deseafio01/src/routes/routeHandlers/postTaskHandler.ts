@@ -14,7 +14,6 @@ export function PostTaskHandler(req: IincomingMessage, res: ServerResponse, data
       created_at: new Date(),
       updated_at: new Date()
     }
-    console.log(task)
     database.insert('tasks', task);
     return res.writeHead(201).end();
   }

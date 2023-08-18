@@ -11,7 +11,7 @@ export class DataBase implements IRepository {
     fs.readFile(databasePath).then(data => {
       this.#database = JSON.parse(data.toString());
     }).catch(() => {
-      console.log("catch");
+      this.#persist();
     })
   }
 
@@ -21,7 +21,6 @@ export class DataBase implements IRepository {
 
   public select(table: string, search: TBody) {
     let data = this.#database[table] ?? [];
-    console.log(search)
     if (search) {
       data = data.filter(row => {
         return Object.entries(search).some(([key, value]) => {
