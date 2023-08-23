@@ -39,6 +39,7 @@
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "fastify": "^4.21.0",
     "knex": "^2.5.1",
-    "sqlite3": "^5.1.6"
+    "sqlite3": "^5.1.6",
+    "zod": "^3.22.2"
   }
 }
