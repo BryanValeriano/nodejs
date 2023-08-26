@@ -84,4 +84,45 @@ describe('Transactions routes', () => {
       }),
     );
   });
+
+  it('should be able to get summary', async () => {
+    const createTransactionResponse = await request(app.server)
+      .post('/transactions')
+      .send({
+        title: 'Test transaction1',
+        amount: 30,
+        type: 'credit',
+      });
+
+    const cookies = createTransactionResponse.get('Set-Cookie');
+
+    await request(app.server)
+      .post('/transactions')
+      .set('Cookie', cookies)
+      .send({
+        title: 'Test transaction2',
+        amount: 100,
+        type: 'credit',
+      });
+
+    await request(app.server)
+      .post('/transactions')
+      .set('Cookie', cookies)
+      .send({
+        title: 'Test transaction2',
+        amount: 50,
+        type: 'debit',
+      });
+
+    const getSummaryResponse = await request(app.server)
+      .get('/transactions/summary')
+      .set('Cookie', cookies)
+      .expect(200);
+
+    expect(getSummaryResponse.body.summary).toEqual(
+      expect.objectContaining({
+        amount: 80,
+      }),
+    );
+  });
 });
