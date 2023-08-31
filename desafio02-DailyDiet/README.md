@@ -29,8 +29,7 @@
 
 qual a estrutura (propriedades) que um Usuario deve ter:
 - `id` - Identificador único de cada usario (vai ser o valor do cookie)
-- `mealsIds` - lista de `id` de refeicoes realizadas pelo usuario
-
+- `email` - email do usuario
 
 qual a estrutura (propriedades) que uma Refeicao deve ter:
 - `id` - Identificador único de cada refeicao.
