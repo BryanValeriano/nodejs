@@ -4,7 +4,7 @@
   "description": "## Sobre o desafio",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest",
     "lint": "eslint src --ext .ts --fix",
     "knex": "node --no-warnings --loader tsx ./node_modules/.bin/knex",
     "dev": "tsx watch src/server.ts"
@@ -22,9 +22,11 @@
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-react": "^7.33.2",
     "tsx": "^3.12.7",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "vitest": "^0.34.3"
   },
   "dependencies": {
+    "@fastify/cookie": "^9.0.4",
     "dotenv": "^16.3.1",
     "fastify": "^4.22.0",
     "knex": "^2.5.1",
