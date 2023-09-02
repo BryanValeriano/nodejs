@@ -1,7 +1,8 @@
 import { randomUUID } from 'crypto';
 import { FastifyInstance } from 'fastify';
 import { knex } from '../database';
-import { postMealBodySchema } from '../schemas/routesSchemas';
+import { getMealParamsSchema, postMealBodySchema } from '../schemas/routesSchemas';
+import { checkSessionIdExists } from '../middlewares/check-session-id-exists';
 
 export async function mealsRoutes(app: FastifyInstance) {
   app.post('/', async (request, reply) => {
@@ -25,8 +26,10 @@ export async function mealsRoutes(app: FastifyInstance) {
       });
     }
 
+    const id = randomUUID();
+
     await knex('meals').insert({
-      id: randomUUID(),
+      id,
       title,
       description,
       date,
@@ -34,6 +37,20 @@ export async function mealsRoutes(app: FastifyInstance) {
       ownerId: sessionId,
     });
 
-    return reply.status(201).send();
+    return reply.status(201).send({ id });
+  });
+
+  app.get('/:id', {
+    preHandler: [checkSessionIdExists],
+  }, async (request) => {
+    const { id } = getMealParamsSchema.parse(request.params);
+    const { sessionId } = request.cookies;
+
+    const meals = await knex('meals').where({
+      id,
+      ownerId: sessionId,
+    }).first();
+
+    return { meals };
   });
 }
