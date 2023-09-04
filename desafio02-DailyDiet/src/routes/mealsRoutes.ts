@@ -58,6 +58,20 @@ export async function mealsRoutes(app: FastifyInstance) {
     return reply.status(200).send({ meal });
   });
 
+  app.delete('/:id', {
+    preHandler: [checkSessionIdExists],
+  }, async (request, reply) => {
+    const { id } = getMealParamsSchema.parse(request.params);
+    const { sessionId } = request.cookies;
+
+    await knex('meals').where({
+      id,
+      ownerId: sessionId,
+    }).delete();
+
+    return reply.status(200).send();
+  });
+
   app.get('/:id', {
     preHandler: [checkSessionIdExists],
   }, async (request) => {
