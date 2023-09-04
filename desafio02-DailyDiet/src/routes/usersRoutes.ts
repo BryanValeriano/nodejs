@@ -1,12 +1,12 @@
 import { randomUUID } from 'crypto';
 import { FastifyInstance } from 'fastify';
 import { knex } from '../database';
-import { postUserBodySchema } from '../schemas/routesSchemas';
+import { getUserParamsSchema, postUserBodySchema } from '../schemas/routesSchemas';
+import { checkSessionIdExists } from '../middlewares/check-session-id-exists';
 
 export async function usersRoutes(app: FastifyInstance) {
   app.post('/', async (request, reply) => {
     const {
-      name,
       email,
     } = postUserBodySchema.parse(request.body);
 
@@ -24,10 +24,22 @@ export async function usersRoutes(app: FastifyInstance) {
     }
 
     await knex('users').where({ id: sessionId }).update({
-      name,
       email,
     });
 
-    return reply.status(201).send();
+    return reply.status(201).send({ sessionId });
+  });
+
+  app.get('/:id', {
+    preHandler: [checkSessionIdExists],
+  }, async (request) => {
+    const { id } = getUserParamsSchema.parse(request.params);
+    // const { sessionId } = request.cookies;
+
+    const user = await knex('users').where({
+      id,
+    }).first();
+
+    return { user };
   });
 }

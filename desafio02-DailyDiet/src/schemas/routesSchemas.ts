@@ -11,7 +11,10 @@ export const postMealBodySchema = z.object({
   isDiet: z.boolean(),
 });
 
+export const getUserParamsSchema = z.object({
+  id: z.string().uuid(),
+});
+
 export const postUserBodySchema = z.object({
-  name: z.string(),
   email: z.string(),
 });
