@@ -42,4 +42,17 @@ export async function usersRoutes(app: FastifyInstance) {
 
     return { user };
   });
+
+  app.get('/:id/meals', {
+    preHandler: [checkSessionIdExists],
+  }, async (request) => {
+    const { id } = getUserParamsSchema.parse(request.params);
+    // const { sessionId } = request.cookies;
+
+    const meals = await knex('meals').where({
+      ownerId: id,
+    });
+
+    return { meals };
+  });
 }

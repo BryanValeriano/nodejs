@@ -60,7 +60,7 @@ Rotas:
     }
     ```
     
-- `PUT - /meal/:id`
+- `PUT - /meal/:id` [x]
     ```
     body: 
     {
@@ -75,7 +75,7 @@ Rotas:
     }
     ```
 
-- `DELETE - /meal/:id`
+- `DELETE - /meal/:id` [x]
     ```
     response code: 204
 
@@ -107,7 +107,7 @@ Rotas:
     }
     ```
  
-- `GET - /user/:id/meals` []
+- `GET - /user/:id/meals` [x]
     ```
     response: 
     meals: [
