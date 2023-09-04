@@ -55,4 +55,37 @@ export async function usersRoutes(app: FastifyInstance) {
 
     return { meals };
   });
+
+  app.get('/:id/summary', {
+    preHandler: [checkSessionIdExists],
+  }, async (request) => {
+    const { id } = getUserParamsSchema.parse(request.params);
+    // const { sessionId } = request.cookies;
+
+    const meals = await knex('meals').where({
+      ownerId: id,
+    });
+
+    const summary = {
+      qtdMeals: 0,
+      qtdDietMeals: 0,
+      qtdNoDietMeals: 0,
+      bestDietStreak: 0,
+    };
+
+    let streak = 0;
+    meals.forEach((meal) => {
+      summary.qtdMeals += 1;
+      if (meal.isDiet) {
+        summary.qtdDietMeals += 1;
+        streak += 1;
+      } else {
+        summary.qtdNoDietMeals += 1;
+        streak = 0;
+      }
+      summary.bestDietStreak = Math.max(summary.bestDietStreak, streak);
+    });
+
+    return { summary };
+  });
 }
