@@ -131,3 +131,6 @@ Rotas:
         "bestDietStreak": number 
     }
     ```
+### TO DO
+- Testes
+- Refazer arquitetura
