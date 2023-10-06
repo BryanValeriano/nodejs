@@ -29,6 +29,7 @@ module.exports = {
     '@typescript-eslint'
   ],
   'rules': {
+    'require-await': 'error',
     'indent': [
       'error',
       2
@@ -44,6 +45,6 @@ module.exports = {
     'semi': [
       'error',
       'always'
-    ]
+    ],
   }
 };
