@@ -29,7 +29,8 @@ module.exports = {
     '@typescript-eslint'
   ],
   'rules': {
-    'require-await': 'error',
+    'require-await': 'off',
+    '@typescript-eslint/require-await': 'error',
     'indent': [
       'error',
       2
