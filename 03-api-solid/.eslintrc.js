@@ -15,13 +15,12 @@ module.exports = {
       'files': [
         '.eslintrc.{js,cjs}'
       ],
-      'parserOptions': {
-        'sourceType': 'script'
-      }
     }
   ],
   'parser': '@typescript-eslint/parser',
   'parserOptions': {
+    'sourceType': 'script',
+    'project': ['./tsconfig.json'],
     'ecmaVersion': 'latest',
     'sourceType': 'module'
   },
