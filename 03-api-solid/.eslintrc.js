@@ -30,6 +30,7 @@ module.exports = {
   'rules': {
     'require-await': 'off',
     '@typescript-eslint/require-await': 'error',
+    "@typescript-eslint/no-floating-promises": "error",
     'indent': [
       'error',
       2
