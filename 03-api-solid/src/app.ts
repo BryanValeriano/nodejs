@@ -5,6 +5,7 @@ import { env } from './env';
 
 export const app = fastify();
 
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
 app.register(appRoutes);
 
 app.setErrorHandler((error, _, reply) => {

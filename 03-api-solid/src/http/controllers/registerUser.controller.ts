@@ -4,7 +4,7 @@ import { RegisterUseCase } from '@/use-cases/registerUseCase';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
 
-export async function registerController(request: FastifyRequest, reply: FastifyReply) {
+export async function registerUserController(request: FastifyRequest, reply: FastifyReply) {
   const requestBodySchema = z.object({
     name: z.string(),
     email: z.string().email(),
