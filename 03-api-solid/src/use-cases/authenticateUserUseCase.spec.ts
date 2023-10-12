@@ -1,16 +1,23 @@
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { AuthenticateUserUseCase } from './authenticateUserUseCase';
-import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository';
 import { hash } from 'bcryptjs';
 import { InvalidCredentialsError } from './errors/invalid-credentials-error';
+import { IUsersRepository } from '@/repositories/IUsersRepository';
+import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository';
+
+let usersRepository: IUsersRepository;
+let sut: AuthenticateUserUseCase;
+let password: string;
 
 describe('Authenticate Use Case', () => {
-  it('shoud be able to register', async () => {
-    const repository = new InMemoryUsersRepository();
-    const sut = new AuthenticateUserUseCase(repository);
-    const password = 'passwordSecret';
+  beforeEach(() => {
+    usersRepository = new InMemoryUsersRepository();
+    sut = new AuthenticateUserUseCase(usersRepository);
+    password = 'passwordSecret';
+  });
 
-    await repository.create({
+  it('shoud be able to register', async () => {
+    await usersRepository.create({
       name: 'John Doe',
       email: 'johnDoe@gmail.com',
       password_hash: await hash(password, 6),
@@ -25,10 +32,6 @@ describe('Authenticate Use Case', () => {
   });
 
   it('shoud not be able to authenticate with non-existent email', async () => {
-    const repository = new InMemoryUsersRepository();
-    const sut = new AuthenticateUserUseCase(repository);
-    const password = 'passwordSecret';
-
     await expect(async () => await sut.execute({
       email: 'johnDoe@gmail.com',
       password
@@ -36,11 +39,7 @@ describe('Authenticate Use Case', () => {
   });
 
   it('shoud not be able to authenticate with wrond passwod', async () => {
-    const repository = new InMemoryUsersRepository();
-    const sut = new AuthenticateUserUseCase(repository);
-    const password = 'passwordSecret';
-
-    await repository.create({
+    await usersRepository.create({
       name: 'John Doe',
       email: 'johnDoe@gmail.com',
       password_hash: await hash(password + 'salt', 6),
