@@ -1,7 +1,6 @@
 import { PrismaUsersRepository } from '@/repositories/prisma/prisma-users-repository';
 import { AuthenticateUserUseCase } from '@/use-cases/authenticateUserUseCase';
 import { InvalidCredentialsError } from '@/use-cases/errors/invalid-credentials-error';
-import { UserAlreadyExistsError } from '@/use-cases/errors/user-already-exists-error';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
 
