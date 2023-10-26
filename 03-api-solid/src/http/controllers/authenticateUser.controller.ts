@@ -1,5 +1,5 @@
 import { InvalidCredentialsError } from '@/use-cases/errors/invalid-credentials-error';
-import { makeauthenticateUserUseCase } from '@/use-cases/factories/makeAuthenticateUserUseCase';
+import { makeAuthenticateUserUseCase } from '@/use-cases/factories/makeAuthenticateUserUseCase';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
 
@@ -12,7 +12,7 @@ export async function authenticateUserController(request: FastifyRequest, reply:
   const { email, password } = requestBodySchema.parse(request.body);
 
   try {
-    const authenticateUserUseCase = makeauthenticateUserUseCase();
+    const authenticateUserUseCase = makeAuthenticateUserUseCase();
     await authenticateUserUseCase.execute({ email, password });
   } catch (err) {
     if (err instanceof InvalidCredentialsError) {
