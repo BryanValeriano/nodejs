@@ -11,6 +11,7 @@ export class InMemoryGymsRepository implements IGymsRepository {
   }
 
   async create({
+    id,
     title,
     description,
     phone,
@@ -18,7 +19,7 @@ export class InMemoryGymsRepository implements IGymsRepository {
     longitude
   }: Prisma.GymCreateInput) {
     const gym = {
-      id: randomUUID(),
+      id: id ?? randomUUID(),
       title,
       description: description ?? null,
       phone: phone ?? null,

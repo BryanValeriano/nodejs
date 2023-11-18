@@ -3,6 +3,7 @@ import { Gym } from '@prisma/client';
 import { randomUUID } from 'node:crypto';
 
 interface CreateGymUseCaseRequest {
+  id: string | null,
   title: string,
   description: string | null,
   phone: string | null,
@@ -17,6 +18,7 @@ interface CreateGymUseCaseResponse {
 export class CreateGymUseCase {
   constructor(private gymsRepository: IGymsRepository) { }
   async execute({
+    id,
     title,
     description,
     phone,
@@ -25,7 +27,7 @@ export class CreateGymUseCase {
   }: CreateGymUseCaseRequest): Promise<CreateGymUseCaseResponse> {
 
     const gym = await this.gymsRepository.create({
-      id: randomUUID(),
+      id: id ?? randomUUID(),
       title,
       description,
       phone,

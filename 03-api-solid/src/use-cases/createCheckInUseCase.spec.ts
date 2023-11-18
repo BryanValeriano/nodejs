@@ -4,23 +4,23 @@ import { CreateCheckInUseCase } from './createCheckInUseCase';
 import { InMemoryCheckInsRepository } from '@/repositories/in-memory/in-memory-checkins-repository';
 import { InMemoryGymsRepository } from '@/repositories/in-memory/in-memory-gyms-repository';
 import { Decimal } from '@prisma/client/runtime/library';
+import { IGymsRepository } from '@/repositories/IGymsRepository';
 
 let checkInsRepository: ICheckInsRepository;
-let gymsRepository: InMemoryGymsRepository;
+let gymsRepository: IGymsRepository;
 let sut: CreateCheckInUseCase;
 
 describe('Create Check In Use Case', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     checkInsRepository = new InMemoryCheckInsRepository();
     gymsRepository = new InMemoryGymsRepository();
-    gymsRepository.gyms.push({
+    await gymsRepository.create({
       id: 'gym-01',
       title: 'test',
       description: 'test',
       phone: 'test',
-      latitude: new Decimal(0),
-      longitude: new Decimal(0),
-
+      latitude: 0,
+      longitude: 0,
     });
     sut = new CreateCheckInUseCase(checkInsRepository, gymsRepository);
     vi.useFakeTimers();
@@ -82,7 +82,7 @@ describe('Create Check In Use Case', () => {
   it('shoud not be able to check in on distant gym', async () => {
     vi.setSystemTime(new Date(2023, 0, 20, 8, 0, 0));
 
-    gymsRepository.gyms.push({
+    await gymsRepository.create({
       id: 'gym-02',
       title: 'test',
       description: 'test',
